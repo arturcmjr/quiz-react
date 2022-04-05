@@ -1,6 +1,7 @@
 import "./App.css";
 import "./styles/output.css";
 import React, { Component } from "react";
+import axios from "axios";
 import { unescape } from "./helpers/unescape";
 import { shuffleArray } from "./helpers/shuffle-array";
 
@@ -17,7 +18,7 @@ class OptionButton extends Component {
         }
         onClick={() => this.props.onSelect()}
       >
-        <span class="material-icons absolute left-2">{this.props.icon}</span>
+        <span className="material-icons absolute left-2">{this.props.icon}</span>
         {this.props.value}
       </button>
     );
@@ -46,14 +47,7 @@ class Game extends Component {
   }
 
   gameOver() {
-    console.log("game over");
     const { questions } = this.state;
-    questions.forEach((q) => {
-      console.log(q.question, {
-        selected: q.selected,
-        correct: q.correctAnswer,
-      });
-    });
     let correct = questions.filter(
       (q) => q.selected && q.correctAnswer === q.selected
     ).length;
@@ -61,7 +55,7 @@ class Game extends Component {
   }
 
   restartCountDown() {
-    let countDown = 15;
+    let countDown = this.state.timeLimit;
     this.setState({ countDown });
     this.interval = window.setInterval(() => {
       if (countDown > 0) {
@@ -75,35 +69,46 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    // return;
-    fetch("https://opentdb.com/api.php?amount=10&type=multiple&difficulty=easy")
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          let questions = [];
-          result.results.forEach((q) => {
-            let options = q.incorrect_answers.map(unescape);
-            options.push(unescape(q.correct_answer));
-            options = shuffleArray(options);
-            options = options.map((o) => o.trim());
+    const { category, questionsAmount, timeLimit } = this.props.settings;
+    this.setState({timeLimit});
 
-            questions.push({
-              category: unescape(q.category),
-              options,
-              question: unescape(q.question),
-              correctAnswer: q.correct_answer,
-            });
-          });
-          this.setState({
-            questions,
-          });
-          this.nextQuestion();
-          console.log(this.state);
+    axios
+      .get("https://opentdb.com/api.php", {
+        params: {
+          amount: questionsAmount,
+          // TODO: let user choose question type
+          type: "multiple",
+          // TODO: let user choose difficulty
+          difficulty: "easy",
+          category: category === -1 ? undefined : category,
+          // TODO: send session token
         },
-        (error) => {
-          // TODO: handle error
-        }
-      );
+      })
+      .then((res) => {
+        let questions = [];
+        const data = res.data.results;
+        data.forEach((q) => {
+          let options = q.incorrect_answers.map(unescape);
+          options.push(unescape(q.correct_answer));
+          options = shuffleArray(options);
+          options = options.map((o) => o.trim());
+
+          questions.push({
+            category: unescape(q.category),
+            options,
+            question: unescape(q.question),
+            correctAnswer: q.correct_answer,
+          });
+        });
+        this.setState({
+          questions,
+        });
+        this.nextQuestion();
+      })
+      .catch((err) => {
+        // TODO: handle error
+        console.error(err);
+      });
     this.startGame();
   }
 
@@ -135,26 +140,26 @@ class Game extends Component {
 
       return (
         <div className="w-100 h-100">
-          <div class="w-full flex justify-between text-orange-400">
+          <div className="w-full flex justify-between text-orange-400">
             {this.renderHearts()}
-            <div class="flex justify-center py-2 px-3 rounded-full bg-orange-400 text-white">
-              <span class="material-icons select-none">hourglass_empty</span>
+            <div className="flex justify-center py-2 px-3 rounded-full bg-orange-400 text-white">
+              <span className="material-icons select-none">hourglass_empty</span>
               {this.state.countDown}
             </div>
-            <div class="w-20 text-right font-medium">{`${
+            <div className="w-20 text-right font-medium">{`${
               this.state.currentIndex + 1
             }/${this.state.questions.length}`}</div>
           </div>
 
-          <div class="w-full flex justify-center text-orange-400 mt-4"></div>
-          <div class="h-60 flex flex-col items-center justify-center text-center">
-            <p class="text-center text-sm text-gray-700">{question.category}</p>
-            <p class="font-medium text-2xl">{question.question}</p>
+          <div className="w-full flex justify-center text-orange-400 mt-4"></div>
+          <div className="h-60 flex flex-col items-center justify-center text-center">
+            <p className="text-center text-sm text-gray-700">{question.category}</p>
+            <p className="font-medium text-2xl">{question.question}</p>
           </div>
           <p className="text-center h-4">
             {answered ? "click anywhere to go to the next question" : ""}
           </p>
-          <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-4 pt-4">
+          <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-4 pt-4">
             {options.map(this.renderQuestionButton, this)}
           </div>
           {this.renderOverlay(answered)}
@@ -167,20 +172,20 @@ class Game extends Component {
     return (
       <div className="max-w-full w-[900px] h-96 flex items-center justify-center">
         <svg
-          class="animate-spin h-10 w-10 text-white"
+          className="animate-spin h-10 w-10 text-white"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
         >
           <circle
-            class="opacity-25 stroke-orange-500"
+            className="opacity-25 stroke-orange-500"
             cx="12"
             cy="12"
             r="10"
-            stroke-width="4"
+            strokeWidth="4"
           ></circle>
           <path
-            class="opacity-75 fill-orange-500"
+            className="opacity-75 fill-orange-500"
             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
           ></path>
         </svg>
@@ -193,10 +198,10 @@ class Game extends Component {
     const icon = (index) =>
       index + 1 <= lives ? "favorite" : "favorite_border";
     return (
-      <div class="flex justify-center w-20">
-        <span class="material-icons select-none text-2xl">{icon(0)}</span>
-        <span class="material-icons select-none text-2xl">{icon(1)}</span>
-        <span class="material-icons select-none text-2xl">{icon(2)}</span>
+      <div className="flex justify-center w-20">
+        <span className="material-icons select-none text-2xl">{icon(0)}</span>
+        <span className="material-icons select-none text-2xl">{icon(1)}</span>
+        <span className="material-icons select-none text-2xl">{icon(2)}</span>
       </div>
     );
   }
@@ -228,8 +233,6 @@ class Game extends Component {
       questions,
       lives,
     });
-    if (correct) console.log("ACERTOU MISERAVI");
-    else console.log("ERROU LAZARENTO");
   }
 }
 
