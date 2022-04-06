@@ -170,7 +170,7 @@ class Game extends Component {
 
   renderLoading() {
     return (
-      <div className="max-w-full w-[900px] h-96 flex items-center justify-center">
+      <div className="max-w-full flex items-center justify-center min-h-[400px]">
         <svg
           className="animate-spin h-10 w-10 text-white"
           xmlns="http://www.w3.org/2000/svg"
