@@ -1,5 +1,3 @@
-import "./App.css";
-import "./styles/output.css";
 import React, { Component } from "react";
 import axios from "axios";
 import { unescape } from "../../helpers/unescape";
