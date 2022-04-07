@@ -1,9 +1,9 @@
 import "./App.css";
 import "./styles/output.css";
 import React, { Component } from "react";
-import Game from "./Game";
-import Menu from "./components/Menu";
-import GameOver from "./components/GameOver";
+import Game from "./components/game/Game";
+import Menu from "./components/menu/Menu";
+import GameOver from "./components/game/GameOver";
 
 
 class App extends Component {
@@ -18,6 +18,7 @@ class App extends Component {
 
   render() {
     return (
+      /* TODO: display app name and logo */
       <div className="bg-orange-300 w-screen h-screen flex justify-center items-center text-gray-700">
         <div className="bg-white rounded overflow-hidden shadow-md md:w-1/2 sm:w-full my-8 mx-4 p-4 relative max-w-2xl min-h-[400px] w-[900px]">
           {this.renderContent()}
@@ -31,7 +32,6 @@ class App extends Component {
       case 1:
         return (
           <Game
-            settings={this.state.gameSettings}
             onOver={(res) => this.setState({ gameState: 2, gameResult: res })}
           ></Game>
         );
@@ -43,16 +43,15 @@ class App extends Component {
           ></GameOver>
         );
       default:
-        return <Menu onStart={(settings) => this.startGame(settings)}></Menu>;
+        return <Menu onStart={() => this.startGame()}></Menu>;
     }
   }
 
-  startGame(settings) {
-    this.setState({ gameState: 1, gameResult: null, gameSettings: settings });
+  startGame() {
+    this.setState({ gameState: 1, gameResult: null});
   }
 
   resetGame() {
-    // TODO: persist settings across games
     this.setState({ gameState: 0, gameResult: null });
   }
 }

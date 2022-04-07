@@ -2,8 +2,9 @@ import "./App.css";
 import "./styles/output.css";
 import React, { Component } from "react";
 import axios from "axios";
-import { unescape } from "./helpers/unescape";
-import { shuffleArray } from "./helpers/shuffle-array";
+import { unescape } from "../../helpers/unescape";
+import { shuffleArray } from "../../helpers/shuffle-array";
+import { loadSettings } from "../../helpers/persist-settings";
 
 class OptionButton extends Component {
   state = {};
@@ -18,7 +19,9 @@ class OptionButton extends Component {
         }
         onClick={() => this.props.onSelect()}
       >
-        <span className="material-icons absolute left-2">{this.props.icon}</span>
+        <span className="material-icons absolute left-2">
+          {this.props.icon}
+        </span>
         {this.props.value}
       </button>
     );
@@ -69,17 +72,16 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    const { category, questionsAmount, timeLimit } = this.props.settings;
-    this.setState({timeLimit});
+    const { category, difficulty, type, questionsAmount, timeLimit } =
+      loadSettings();
+    this.setState({ timeLimit });
 
     axios
       .get("https://opentdb.com/api.php", {
         params: {
           amount: questionsAmount,
-          // TODO: let user choose question type
-          type: "multiple",
-          // TODO: let user choose difficulty
-          difficulty: "easy",
+          type,
+          difficulty,
           category: category === -1 ? undefined : category,
           // TODO: send session token
         },
@@ -91,6 +93,7 @@ class Game extends Component {
           let options = q.incorrect_answers.map(unescape);
           options.push(unescape(q.correct_answer));
           options = shuffleArray(options);
+          // TODO: if question is true or false, always display the options on the same order
           options = options.map((o) => o.trim());
 
           questions.push({
@@ -143,7 +146,9 @@ class Game extends Component {
           <div className="w-full flex justify-between text-orange-400">
             {this.renderHearts()}
             <div className="flex justify-center py-2 px-3 rounded-full bg-orange-400 text-white">
-              <span className="material-icons select-none">hourglass_empty</span>
+              <span className="material-icons select-none">
+                hourglass_empty
+              </span>
               {this.state.countDown}
             </div>
             <div className="w-20 text-right font-medium">{`${
@@ -153,7 +158,9 @@ class Game extends Component {
 
           <div className="w-full flex justify-center text-orange-400 mt-4"></div>
           <div className="h-60 flex flex-col items-center justify-center text-center">
-            <p className="text-center text-sm text-gray-700">{question.category}</p>
+            <p className="text-center text-sm text-gray-700">
+              {question.category}
+            </p>
             <p className="font-medium text-2xl">{question.question}</p>
           </div>
           <p className="text-center h-4">
