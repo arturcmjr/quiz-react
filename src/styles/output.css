@@ -429,23 +429,17 @@ Ensure the default browser behavior of the `hidden` attribute.
 .left-0 {
   left: 0px;
 }
-.bottom-0 {
-  bottom: 0px;
-}
-.right-0 {
-  right: 0px;
-}
-.right-2 {
-  right: 0.5rem;
-}
-.top-2 {
-  top: 0.5rem;
-}
 .right-3 {
   right: 0.75rem;
 }
 .top-3 {
   top: 0.75rem;
+}
+.bottom-2 {
+  bottom: 0.5rem;
+}
+.bottom-3 {
+  bottom: 0.75rem;
 }
 .z-10 {
   z-index: 10;
@@ -474,6 +468,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mt-3 {
   margin-top: 0.75rem;
 }
+.mr-2 {
+  margin-right: 0.5rem;
+}
 .block {
   display: block;
 }
@@ -498,8 +495,8 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-32 {
   height: 8rem;
 }
-.h-full {
-  height: 100%;
+.h-1\/6 {
+  height: 16.666667%;
 }
 .min-h-\[400px\] {
   min-height: 400px;
@@ -601,6 +598,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 1;
   background-color: rgb(255 237 213 / var(--tw-bg-opacity));
 }
+.bg-orange-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 215 170 / var(--tw-bg-opacity));
+}
 .bg-clip-padding {
   background-clip: padding-box;
 }
@@ -615,12 +616,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .p-4 {
   padding: 1rem;
-}
-.p-3 {
-  padding: 0.75rem;
-}
-.p-2 {
-  padding: 0.5rem;
 }
 .py-2 {
   padding-top: 0.5rem;
@@ -655,6 +650,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-right {
   text-align: right;
 }
+.align-middle {
+  vertical-align: middle;
+}
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -667,13 +665,17 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-size: 1.125rem;
   line-height: 1.75rem;
 }
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
 }
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
 }
 .font-medium {
   font-weight: 500;
@@ -683,6 +685,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .font-light {
   font-weight: 300;
+}
+.font-semibold {
+  font-weight: 600;
 }
 .text-gray-700 {
   --tw-text-opacity: 1;
@@ -704,17 +709,13 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-text-opacity: 1;
   color: rgb(194 65 12 / var(--tw-text-opacity));
 }
-.text-gray-500 {
-  --tw-text-opacity: 1;
-  color: rgb(107 114 128 / var(--tw-text-opacity));
-}
 .text-orange-500 {
   --tw-text-opacity: 1;
   color: rgb(249 115 22 / var(--tw-text-opacity));
 }
-.text-orange-600 {
+.text-orange-800 {
   --tw-text-opacity: 1;
-  color: rgb(234 88 12 / var(--tw-text-opacity));
+  color: rgb(154 52 18 / var(--tw-text-opacity));
 }
 .opacity-25 {
   opacity: 0.25;
@@ -759,25 +760,13 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 1;
   background-color: rgb(249 115 22 / var(--tw-bg-opacity));
 }
-.hover\:text-orange-900:hover {
-  --tw-text-opacity: 1;
-  color: rgb(124 45 18 / var(--tw-text-opacity));
-}
-.hover\:text-gray-900:hover {
-  --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity));
-}
-.hover\:text-gray-700:hover {
-  --tw-text-opacity: 1;
-  color: rgb(55 65 81 / var(--tw-text-opacity));
-}
-.hover\:text-orange-700:hover {
-  --tw-text-opacity: 1;
-  color: rgb(194 65 12 / var(--tw-text-opacity));
-}
 .hover\:text-orange-500:hover {
   --tw-text-opacity: 1;
   color: rgb(249 115 22 / var(--tw-text-opacity));
+}
+.hover\:text-orange-900:hover {
+  --tw-text-opacity: 1;
+  color: rgb(124 45 18 / var(--tw-text-opacity));
 }
 .hover\:shadow-md:hover {
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
