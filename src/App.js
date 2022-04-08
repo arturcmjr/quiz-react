@@ -5,6 +5,7 @@ import Game from "./components/game/Game";
 import Menu from "./components/menu/Menu";
 import GameOver from "./components/game/GameOver";
 import logo from "./logo.svg";
+import axios from "axios";
 
 class App extends Component {
   constructor(props) {
@@ -29,9 +30,30 @@ class App extends Component {
         </div>
 
         {/* TODO: use correct link */}
-        <a href="https://www.google.com/" className="absolute bottom-3 text-orange-700 hover:text-orange-900">arju.dev</a>
+        <a
+          href="https://www.google.com/"
+          className="absolute bottom-3 text-orange-700 hover:text-orange-900"
+        >
+          arju.dev
+        </a>
       </div>
     );
+  }
+
+  componentDidMount() {
+    this.checkSessionToken();
+  }
+
+  checkSessionToken() {
+    const sessionToken = localStorage.getItem("sessionToken");
+    if (!sessionToken) {
+      axios
+        .get("https://opentdb.com/api_token.php?command=request")
+        .then((res) => {
+          const token = res.data.token;
+          localStorage.setItem("sessionToken", token);
+        });
+    }
   }
 
   renderContent() {

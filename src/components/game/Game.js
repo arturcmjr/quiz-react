@@ -74,6 +74,8 @@ class Game extends Component {
       loadSettings();
     this.setState({ timeLimit });
 
+    const sessionToken = localStorage.getItem("sessionToken");
+
     axios
       .get("https://opentdb.com/api.php", {
         params: {
@@ -81,7 +83,7 @@ class Game extends Component {
           type,
           difficulty,
           category: category === -1 ? undefined : category,
-          // TODO: send session token
+          token: sessionToken,
         },
       })
       .then((res) => {
