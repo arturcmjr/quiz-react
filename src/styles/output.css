@@ -498,6 +498,18 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-1\/6 {
   height: 16.666667%;
 }
+.h-1\/5 {
+  height: 20%;
+}
+.h-1\/4 {
+  height: 25%;
+}
+.h-1\/3 {
+  height: 33.333333%;
+}
+.h-\[20\%\] {
+  height: 20%;
+}
 .min-h-\[400px\] {
   min-height: 400px;
 }
@@ -717,6 +729,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-text-opacity: 1;
   color: rgb(154 52 18 / var(--tw-text-opacity));
 }
+.text-gray-800 {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
+}
 .opacity-25 {
   opacity: 0.25;
 }
@@ -767,6 +783,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .hover\:text-orange-900:hover {
   --tw-text-opacity: 1;
   color: rgb(124 45 18 / var(--tw-text-opacity));
+}
+.hover\:text-gray-200:hover {
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity));
+}
+.hover\:text-gray-900:hover {
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 .hover\:shadow-md:hover {
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);

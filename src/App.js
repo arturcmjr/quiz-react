@@ -20,19 +20,19 @@ class App extends Component {
   render() {
     return (
       <div className="bg-orange-300 w-screen h-screen flex justify-center items-center text-gray-700">
-        <div className="flex items-center absolute top-3 h-1/6">
+        <div className="flex items-center absolute top-3 h-[20%]">
           <img src={logo} width="60px" className="mr-2" alt="app_logo"></img>
           <span className="text-5xl text-white font-light">QUIZ</span>
         </div>
 
-        <div className="bg-white rounded overflow-hidden shadow-md md:w-1/2 sm:w-full my-8 mx-4 p-4 relative max-w-2xl min-h-[400px] w-[900px]">
+        <div className="bg-white rounded overflow-hidden shadow-md md:w-1/2 sm:w-full my-8 mx-4 p-4 relative max-w-2xl min-h-[400px] w-[900px] z-10">
           {this.renderContent()}
         </div>
 
         {/* TODO: use correct link */}
         <a
           href="https://www.google.com/"
-          className="absolute bottom-3 text-orange-700 hover:text-orange-900"
+          className="absolute bottom-3 text-orange-700 hover:text-orange-900 text-lg"
         >
           arju.dev
         </a>

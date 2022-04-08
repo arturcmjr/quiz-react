@@ -8,6 +8,7 @@ import {
 } from "../../helpers/persist-settings";
 
 class Settings extends Component {
+  // TODO: add possibility to not select more options
   state = {
     options: {
       difficulties: [

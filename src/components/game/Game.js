@@ -89,11 +89,15 @@ class Game extends Component {
       .then((res) => {
         let questions = [];
         const data = res.data.results;
+        if(data.length !== questionsAmount) {
+          // TODO: show message if there is not enough questions
+        }
         data.forEach((q) => {
           let options = q.incorrect_answers.map(unescape);
           options.push(unescape(q.correct_answer));
-          options = shuffleArray(options);
-          // TODO: if question is true or false, always display the options on the same order
+          if (type === "boolean")
+            options = options.sort((a, b) => a.localeCompare(b)).reverse();
+          else options = shuffleArray(options);
           options = options.map((o) => o.trim());
 
           questions.push({
