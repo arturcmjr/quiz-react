@@ -26,7 +26,7 @@ class App extends Component {
         </div>
 
         <div className="grow flex justify-center items-start w-screen">
-          <div className="bg-white rounded overflow-hidden shadow-md md:w-1/2 sm:w-full mx-2 mb-2 p-4 relative max-w-2xl min-h-[400px] w-[900px] z-10">
+          <div className="bg-white rounded overflow-hidden shadow-md md:w-1/2 sm:w-full mx-3 mb-2 p-4 relative max-w-2xl min-h-[400px] w-[900px] z-10">
             {this.renderContent()}
           </div>
         </div>
