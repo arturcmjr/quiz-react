@@ -420,9 +420,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .relative {
   position: relative;
 }
-.top-3 {
-  top: 0.75rem;
-}
 .bottom-3 {
   bottom: 0.75rem;
 }
@@ -438,42 +435,31 @@ Ensure the default browser behavior of the `hidden` attribute.
 .right-3 {
   right: 0.75rem;
 }
+.top-3 {
+  top: 0.75rem;
+}
 .z-10 {
   z-index: 10;
 }
 .m-0 {
   margin: 0px;
 }
-.my-8 {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-.mx-4 {
-  margin-left: 1rem;
-  margin-right: 1rem;
+.mx-3 {
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
 }
 .my-3 {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
 }
-.my-4 {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-.my-2 {
+.mt-2 {
   margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-.mx-2 {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
-.mx-3 {
-  margin-left: 0.75rem;
-  margin-right: 0.75rem;
 }
 .mr-2 {
   margin-right: 0.5rem;
+}
+.mb-2 {
+  margin-bottom: 0.5rem;
 }
 .mt-4 {
   margin-top: 1rem;
@@ -483,12 +469,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .mt-3 {
   margin-top: 0.75rem;
-}
-.mt-2 {
-  margin-top: 0.5rem;
-}
-.mb-2 {
-  margin-bottom: 0.5rem;
 }
 .block {
   display: block;
@@ -502,8 +482,8 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-screen {
   height: 100vh;
 }
-.h-\[20\%\] {
-  height: 20%;
+.h-\[15\%\] {
+  height: 15%;
 }
 .h-60 {
   height: 15rem;
@@ -516,9 +496,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .h-32 {
   height: 8rem;
-}
-.h-\[15\%\] {
-  height: 15%;
 }
 .min-h-\[400px\] {
   min-height: 400px;

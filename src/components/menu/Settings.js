@@ -8,10 +8,10 @@ import {
 } from "../../helpers/persist-settings";
 
 class Settings extends Component {
-  // TODO: add possibility to not select more options
   state = {
     options: {
       difficulties: [
+        { value: "any", text: "Any Difficulty" },
         { value: "easy", text: "Easy" },
         { value: "medium", text: "Medium" },
         { value: "hard", text: "Hard" },

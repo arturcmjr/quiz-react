@@ -29,7 +29,7 @@ class OptionButton extends Component {
 class Game extends Component {
   state = {};
 
-  startGame() {
+  resetGameParams() {
     this.setState({
       lives: 3,
       countDown: 15,
@@ -70,18 +70,26 @@ class Game extends Component {
   }
 
   componentDidMount() {
+    this.resetGameParams();
+    this.fetchQuestions();
+  }
+
+  fetchQuestions() {
     const { category, difficulty, type, questionsAmount, timeLimit } =
       loadSettings();
     this.setState({ timeLimit });
 
-    const sessionToken = localStorage.getItem("sessionToken");
+    const sessionToken = sessionStorage.getItem("sessionToken");
+
+    console.log(Number(difficulty) === -1);
+    console.log(difficulty);
 
     axios
       .get("https://opentdb.com/api.php", {
         params: {
           amount: questionsAmount,
           type,
-          difficulty,
+          difficulty: difficulty === "any" ? undefined : difficulty,
           category: category === -1 ? undefined : category,
           token: sessionToken,
         },
@@ -105,6 +113,7 @@ class Game extends Component {
             options,
             question: unescape(q.question),
             correctAnswer: q.correct_answer,
+            difficulty: q.difficulty,
           });
         });
         this.setState({
@@ -116,7 +125,6 @@ class Game extends Component {
         // TODO: handle error
         console.error(err);
       });
-    this.startGame();
   }
 
   renderQuestionButton(text, index) {
@@ -163,7 +171,7 @@ class Game extends Component {
           <div className="w-full flex justify-center text-orange-400 mt-4"></div>
           <div className="h-60 flex flex-col items-center justify-center text-center">
             <p className="text-center text-sm text-gray-700">
-              {question.category}
+              {question.category}, {question.difficulty}
             </p>
             <p className="font-medium text-2xl">{question.question}</p>
           </div>

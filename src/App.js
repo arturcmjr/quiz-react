@@ -53,7 +53,7 @@ class App extends Component {
         .get("https://opentdb.com/api_token.php?command=request")
         .then((res) => {
           const token = res.data.token;
-          localStorage.setItem("sessionToken", token);
+          sessionStorage.setItem("sessionToken", token);
         });
     }
   }
