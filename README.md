@@ -5,7 +5,7 @@ A quiz game which makes use of [Open Trivia Database](https://opentdb.com/) API.
 
 This web app is a simple implementation of Open Trivia Database made on React where you can test your knowledge on a variety of categories on questions made by the community.
 
-[live demo](https://arju-quiz.web.app/).
+[live demo](https://quiz.arju.dev/).
 
 ## Features
 - Choose between more than 10 categories
