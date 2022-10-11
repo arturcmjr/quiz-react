@@ -71,21 +71,19 @@ class Game extends Component {
   }
 
   fetchQuestions() {
-    const { category, difficulty, type, questionsAmount, timeLimit } = loadSettings();
+    let { category, difficulty, type, questionsAmount, timeLimit } = loadSettings();
+    category = Number(category);
     this.setState({ timeLimit });
 
     const sessionToken = sessionStorage.getItem("sessionToken");
-
-    console.log(Number(difficulty) === -1);
-    console.log(difficulty);
-
+    
     axios
       .get("https://opentdb.com/api.php", {
         params: {
           amount: questionsAmount,
           type,
           difficulty: difficulty === "any" ? undefined : difficulty,
-          category: category == -1 ? undefined : category,
+          category: category === -1 ? undefined : category,
           token: sessionToken,
         },
       })

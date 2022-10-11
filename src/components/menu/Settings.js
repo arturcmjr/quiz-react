@@ -131,13 +131,11 @@ class Settings extends Component {
   }
 
   setDefaultSettings() {
-    console.log(defaultSettings);
     let { settings } = this.state;
     for (let key in settings) {
       settings[key] = defaultSettings[key];
     }
     this.setState({ settings });
-    console.log(this.state);
   }
 
   onConfirm() {
