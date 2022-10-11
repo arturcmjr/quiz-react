@@ -17,9 +17,7 @@ class OptionButton extends Component {
         }
         onClick={() => this.props.onSelect()}
       >
-        <span className="material-icons absolute left-2">
-          {this.props.icon}
-        </span>
+        <span className="material-icons absolute left-2">{this.props.icon}</span>
         {this.props.value}
       </button>
     );
@@ -49,9 +47,7 @@ class Game extends Component {
 
   gameOver() {
     const { questions } = this.state;
-    let correct = questions.filter(
-      (q) => q.selected && q.correctAnswer === q.selected
-    ).length;
+    let correct = questions.filter((q) => q.selected && q.correctAnswer === q.selected).length;
     this.props.onOver({ correct, total: questions.length });
   }
 
@@ -75,8 +71,7 @@ class Game extends Component {
   }
 
   fetchQuestions() {
-    const { category, difficulty, type, questionsAmount, timeLimit } =
-      loadSettings();
+    const { category, difficulty, type, questionsAmount, timeLimit } = loadSettings();
     this.setState({ timeLimit });
 
     const sessionToken = sessionStorage.getItem("sessionToken");
@@ -90,21 +85,21 @@ class Game extends Component {
           amount: questionsAmount,
           type,
           difficulty: difficulty === "any" ? undefined : difficulty,
-          category: category === -1 ? undefined : category,
+          category: category == -1 ? undefined : category,
           token: sessionToken,
         },
       })
       .then((res) => {
         let questions = [];
         const data = res.data.results;
-        if(data.length !== questionsAmount) {
-          // TODO: show message if there is not enough questions
+        if (data.length !== questionsAmount) {
+          this.setState({ notEnoughQuestions: true });
+          return;
         }
         data.forEach((q) => {
           let options = q.incorrect_answers.map(unescape);
           options.push(unescape(q.correct_answer));
-          if (type === "boolean")
-            options = options.sort((a, b) => a.localeCompare(b)).reverse();
+          if (type === "boolean") options = options.sort((a, b) => a.localeCompare(b)).reverse();
           else options = shuffleArray(options);
           options = options.map((o) => o.trim());
 
@@ -120,6 +115,7 @@ class Game extends Component {
           questions,
         });
         this.nextQuestion();
+        this.setState({ notEnoughQuestions: false });
       })
       .catch((err) => {
         // TODO: handle error
@@ -148,6 +144,7 @@ class Game extends Component {
   }
 
   render() {
+    if (this.state.notEnoughQuestions === true) return this.renderNotEnoughWarning();
     if (this.state.currentIndex >= 0) {
       const question = this.getCurrentQuestion();
       const options = question.options;
@@ -158,14 +155,12 @@ class Game extends Component {
           <div className="w-full flex justify-between text-orange-400">
             {this.renderHearts()}
             <div className="flex justify-center py-2 px-3 rounded-full bg-orange-400 text-white">
-              <span className="material-icons select-none">
-                hourglass_empty
-              </span>
+              <span className="material-icons select-none">hourglass_empty</span>
               {this.state.countDown}
             </div>
-            <div className="w-20 text-right font-medium">{`${
-              this.state.currentIndex + 1
-            }/${this.state.questions.length}`}</div>
+            <div className="w-20 text-right font-medium">{`${this.state.currentIndex + 1}/${
+              this.state.questions.length
+            }`}</div>
           </div>
 
           <div className="w-full flex justify-center text-orange-400 mt-4"></div>
@@ -185,6 +180,23 @@ class Game extends Component {
         </div>
       );
     } else return this.renderLoading();
+  }
+
+  renderNotEnoughWarning() {
+    return (
+      <div className="max-w-full flex flex-col items-center justify-center min-h-[400px]">
+        <div className="text-2xl text-center mb-2 font-light">
+          There is not enough questions for the selected settings
+        </div>
+        <div className="text-xl text-center font-light">please do some changes and try again</div>
+        <button
+          className="bg-orange-400 text-white hover:bg-orange-500 font-medium px-3 py-1 rounded-sm mt-3"
+          onClick={() => this.props.onMenu()}
+        >
+          MENU
+        </button>
+      </div>
+    );
   }
 
   renderLoading() {
@@ -214,8 +226,7 @@ class Game extends Component {
 
   renderHearts() {
     const { lives } = this.state;
-    const icon = (index) =>
-      index + 1 <= lives ? "favorite" : "favorite_border";
+    const icon = (index) => (index + 1 <= lives ? "favorite" : "favorite_border");
     return (
       <div className="flex justify-center w-20">
         <span className="material-icons select-none text-2xl">{icon(0)}</span>

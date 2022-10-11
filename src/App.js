@@ -31,10 +31,11 @@ class App extends Component {
           </div>
         </div>
 
-        {/* TODO: use correct link */}
         <a
-          href="https://www.google.com/"
+          href="https://arju.dev"
           className="absolute bottom-3 text-orange-700 hover:text-orange-900 text-lg"
+          target="_blank"
+          rel="noreferrer"
         >
           arju.dev
         </a>
@@ -49,12 +50,10 @@ class App extends Component {
   checkSessionToken() {
     const sessionToken = localStorage.getItem("sessionToken");
     if (!sessionToken) {
-      axios
-        .get("https://opentdb.com/api_token.php?command=request")
-        .then((res) => {
-          const token = res.data.token;
-          sessionStorage.setItem("sessionToken", token);
-        });
+      axios.get("https://opentdb.com/api_token.php?command=request").then((res) => {
+        const token = res.data.token;
+        sessionStorage.setItem("sessionToken", token);
+      });
     }
   }
 
@@ -64,14 +63,12 @@ class App extends Component {
         return (
           <Game
             onOver={(res) => this.setState({ gameState: 2, gameResult: res })}
+            onMenu={() => this.setState({ gameState: 0 })}
           ></Game>
         );
       case 2:
         return (
-          <GameOver
-            onPlayAgain={() => this.resetGame()}
-            result={this.state.gameResult}
-          ></GameOver>
+          <GameOver onPlayAgain={() => this.resetGame()} result={this.state.gameResult}></GameOver>
         );
       default:
         return <Menu onStart={() => this.startGame()}></Menu>;
